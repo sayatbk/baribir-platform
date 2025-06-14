@@ -1,0 +1,28 @@
+spring:
+  port: 8080
+  application:
+    name: 'gateway'
+  cloud:
+    gateway:
+      routes:
+        - id: example-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/example/**
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/baribir_db"
+    username: "postgres"
+    password: "postgres"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.xml
+jwt:
+  secret: ''
